@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 
-class TextFeildNote extends StatelessWidget {
-  double height;
-  TextFeildNote({
-    this.height = 70,
-  });
+class TextNoteContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Container(
-        height: height,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: Colors.grey),
-        child: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          TextField(
+            decoration: InputDecoration(
+              hintText: "title",
+              border: InputBorder.none,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
