@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/views/widgets/custome_app_bar.dart';
-import 'package:notes_app/views/widgets/custome_list_item.dart';
-import 'package:notes_app/views/widgets/custome_note_iem.dart';
+import 'package:notes_app/views/widgets/edit_modal_widget.dart';
 
-class NoteViewBody extends StatelessWidget {
+class EditViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,9 +12,9 @@ class NoteViewBody extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          CustomeAppBar(title: "Note", iconData: Icons.search),
+          CustomeAppBar(title: "Edit Note", iconData: Icons.check),
           Expanded(
-            child: CustomeListView(),
+            child: EditModalWidget(),
           ),
         ],
       ),
