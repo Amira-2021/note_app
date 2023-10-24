@@ -12,6 +12,9 @@ class NoteApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
+        fontFamily: "Poppins",
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: Colors.white),
       ),
       home: NoteView(),
     );

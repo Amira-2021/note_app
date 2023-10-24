@@ -7,7 +7,7 @@ class CustomeAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        const Text(
           "Notes",
           style: TextStyle(
             fontSize: 35,
