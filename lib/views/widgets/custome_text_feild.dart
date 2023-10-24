@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/views/widgets/custome_note_iem.dart';
 
-class CustomeTextFeild extends StatelessWidget {
+class CustomTextFeild extends StatelessWidget {
   double height;
   String title;
   Color color;
   int lines;
-  CustomeTextFeild(
+  TextEditingController controller;
+  CustomTextFeild(
       {required this.height,
       required this.title,
       required this.color,
+      required this.controller,
       required this.lines});
   @override
   Widget build(BuildContext context) {
@@ -16,34 +19,31 @@ class CustomeTextFeild extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextField(
         maxLines: lines,
+        textInputAction: TextInputAction.next,
+        cursorColor: Color(0xff62FCD7),
+        controller: controller,
+        onSubmitted: (input) {
+          input = controller.text;
+          // noteModel.title = input;
+        },
         decoration: InputDecoration(
-          label: Text(title),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: Colors.white,
-            ),
-          ),
+          hintText: title,
+          hintStyle: TextStyle(fontSize: 22),
+          border: buildBorder(),
+          focusedBorder: buildBorder(Color(0xff62FCD7)),
+          enabledBorder: buildBorder(),
+          disabledBorder: buildBorder(),
         ),
       ),
     );
   }
+}
+
+OutlineInputBorder buildBorder([color]) {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(16),
+    borderSide: BorderSide(
+      color: color ?? Colors.white,
+    ),
+  );
 }

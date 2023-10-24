@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/views/constant/colors.dart';
 import 'package:notes_app/views/note_view.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class NoteApp extends StatelessWidget {
         brightness: Brightness.dark,
         fontFamily: "Poppins",
         floatingActionButtonTheme:
-            FloatingActionButtonThemeData(backgroundColor: Colors.white),
+            FloatingActionButtonThemeData(backgroundColor: kPrimaryColor),
       ),
       home: NoteView(),
     );

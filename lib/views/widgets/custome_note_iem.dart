@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomeNoteItem extends StatelessWidget {
   Color? colors;
-  CustomeNoteItem({required this.colors});
+  // NoteModel noteModel;
+  CustomeNoteItem({
+    required this.colors,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +20,13 @@ class CustomeNoteItem extends StatelessWidget {
         children: [
           ListTile(
             title: Text(
-              "Flutter Tips",
+              "Amira",
               style: TextStyle(fontSize: 22, color: Colors.black),
             ),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                "Amira Ahmed Hassan Ahmed",
+                "Engineer Computer science",
                 style: TextStyle(
                     fontSize: 18, color: Colors.black.withOpacity(0.5)),
               ),
@@ -49,4 +52,10 @@ class CustomeNoteItem extends StatelessWidget {
       ),
     );
   }
+}
+
+class NoteModel {
+  String title;
+  String content;
+  NoteModel({required this.title, required this.content});
 }

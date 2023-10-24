@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/views/widgets/custome_note_iem.dart';
 
 class CustomeListView extends StatelessWidget {
+  // NoteModel? noteModel;
   @override
   Widget build(BuildContext context) {
     List<Color> color = [
@@ -18,6 +19,7 @@ class CustomeListView extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) => CustomeNoteItem(
           colors: color[index],
+          // noteModel: noteModel!,
         ),
         separatorBuilder: (context, index) => Padding(
           padding: const EdgeInsets.all(8),
