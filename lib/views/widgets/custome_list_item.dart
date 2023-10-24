@@ -12,15 +12,19 @@ class CustomeListView extends StatelessWidget {
       Colors.grey.shade200,
       Colors.yellow.shade200,
     ];
-    return ListView.separated(
-      itemBuilder: (context, index) => CustomeNoteItem(
-        colors: color[index],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: ListView.separated(
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) => CustomeNoteItem(
+          colors: color[index],
+        ),
+        separatorBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(8),
+          child: Container(),
+        ),
+        itemCount: 6,
       ),
-      separatorBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(),
-      ),
-      itemCount: 6,
     );
   }
 }
