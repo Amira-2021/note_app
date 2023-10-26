@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/views/widgets/custome_button.dart';
 import 'package:notes_app/views/widgets/custome_text_feild.dart';
+import 'package:notes_app/views/widgets/show_modal_widget.dart';
 
 class EditModalWidget extends StatelessWidget {
-  var titleController = TextEditingController();
-  var datailController = TextEditingController();
+  final Function? function;
+  EditModalWidget({
+    super.key,
+    this.function,
+  });
+  final titleController = TextEditingController();
+  final datailController = TextEditingController();
   // NoteModel? noteModel;
 
   @override
@@ -14,26 +22,67 @@ class EditModalWidget extends StatelessWidget {
         vertical: 32,
       ),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomTextFeild(
-              title: "Title",
-              height: 50,
-              color: Colors.blue,
-              lines: 1,
-              controller: titleController,
-            ),
-            CustomTextFeild(
-                title: "Content",
-                height: 250,
-                color: Colors.black,
-                lines: 6,
-                controller: datailController),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
+          child: EditTextForm(
+        function: function,
+      )),
+    );
+  }
+}
+
+class EditTextForm extends StatefulWidget {
+  final Function? function;
+  const EditTextForm({super.key, this.function});
+  @override
+  _EditTextFormState createState() => _EditTextFormState();
+}
+
+class _EditTextFormState extends State<EditTextForm> {
+  var titleController = TextEditingController();
+  var subtitleController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title, subtitle;
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      autovalidateMode: autovalidateMode,
+      child: Column(
+        children: [
+          CustomTextField(
+            title: "Title",
+            height: 50,
+            color: Colors.blue,
+            lines: 1,
+            controller: titleController,
+            onSave: (value) {
+              title = value;
+            },
+          ),
+          CustomTextField(
+            title: "Content",
+            height: 250,
+            color: Colors.black,
+            lines: 6,
+            controller: subtitleController,
+            onSave: (value) {
+              subtitle = value;
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CustomButton(
+              title: "Save",
+              onTap: () {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                } else {
+                  autovalidateMode = AutovalidateMode.always;
+                }
+                setState(() {});
+              })
+        ],
       ),
     );
   }

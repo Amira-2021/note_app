@@ -1,31 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/views/widgets/custome_note_iem.dart';
 
-class CustomTextFeild extends StatelessWidget {
-  double height;
-  String title;
-  Color color;
-  int lines;
-  TextEditingController controller;
-  CustomTextFeild(
-      {required this.height,
+class CustomTextField extends StatelessWidget {
+  const CustomTextField(
+      {super.key,
+      required this.height,
       required this.title,
       required this.color,
-      required this.controller,
-      required this.lines});
+      required this.lines,
+      this.onSave,
+      required this.controller});
+  final double height;
+  final String title;
+  final Color color;
+  final int lines;
+  final void Function(String?)? onSave;
+  final TextEditingController controller;
+
+  // CustomTextField(this.height, this.title, this.color, this.lines, this.onSave,
+  //      this.controller);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: TextField(
+      child: TextFormField(
         maxLines: lines,
         textInputAction: TextInputAction.next,
         cursorColor: Color(0xff62FCD7),
         controller: controller,
-        onSubmitted: (input) {
-          input = controller.text;
-          // noteModel.title = input;
+        onSaved: onSave,
+        validator: (value) {
+          if (value?.isEmpty ?? true) {
+            return "Field is required";
+          } else {
+            return null;
+          }
         },
+        // onSubmitted: (input) {
+        //   input = controller.text;
+        // noteModel.title = input;
+        // },
         decoration: InputDecoration(
           hintText: title,
           hintStyle: TextStyle(fontSize: 22),

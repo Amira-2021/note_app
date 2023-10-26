@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/views/widgets/custome_app_bar.dart';
 import 'package:notes_app/views/widgets/edit_modal_widget.dart';
 
-class EditViewBody extends StatelessWidget {
+class EditViewBody extends StatefulWidget {
+  @override
+  State<EditViewBody> createState() => _EditViewBodyState();
+}
+
+class _EditViewBodyState extends State<EditViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,12 +17,15 @@ class EditViewBody extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          CustomeAppBar(title: "Edit Note", iconData: Icons.check),
+          CustomeAppBar(
+              title: "Edit Note", iconData: Icons.check, onTap: OnClickCheck),
           Expanded(
-            child: EditModalWidget(),
+            child: EditModalWidget(function: OnClickCheck),
           ),
         ],
       ),
     );
   }
+
+  void OnClickCheck() {}
 }

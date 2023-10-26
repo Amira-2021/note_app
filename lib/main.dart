@@ -3,7 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:notes_app/views/constant/colors.dart';
 import 'package:notes_app/views/note_view.dart';
 
-void main() async{
+void main() async {
   await Hive.initFlutter();
   await Hive.openBox(kNoteBox);
   runApp(NoteApp());
