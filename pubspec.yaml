@@ -30,6 +30,8 @@ environment:
 dependencies:
   hive: ^2.2.3
   hive_flutter:
+  bloc: ^8.0.0
+  flutter_bloc: ^8.0.0
   flutter:
     sdk: flutter
 
