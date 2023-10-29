@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/cubits/add_cubit/add_note_cubit.dart';
+import 'package:notes_app/views/widgets/add_note_form.dart';
 import 'package:notes_app/views/widgets/custome_button.dart';
 import 'package:notes_app/views/widgets/custome_note_iem.dart';
 import 'package:notes_app/views/widgets/custome_text_feild.dart';
@@ -14,65 +18,28 @@ class ShowModalWidget extends StatelessWidget {
         vertical: 32,
       ),
       child: SingleChildScrollView(
-        child: NoteTextForm(),
-      ),
-    );
-  }
-}
-
-class NoteTextForm extends StatefulWidget {
-  @override
-  _NoteTextFormState createState() => _NoteTextFormState();
-}
-
-class _NoteTextFormState extends State<NoteTextForm> {
-  var titleController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey();
-  var datailController = TextEditingController();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  String? title, subtitle;
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-          CustomTextField(
-            title: "Title",
-            height: 50,
-            color: Colors.blue,
-            lines: 1,
-            controller: titleController,
-            onSave: (value) {
-              title = value;
-            },
-          ),
-          CustomTextField(
-            title: "Content",
-            height: 250,
-            color: Colors.black,
-            lines: 6,
-            controller: datailController,
-            onSave: (value) {
-              subtitle = value;
-            },
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CustomButton(
-            title: "Add",
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-              } else {
-                autovalidateMode = AutovalidateMode.always;
-              }
-              setState(() {});
-            },
-          ),
-        ],
+        child: BlocConsumer<AddNoteCubit, AddNoteStates>(
+            listener: (context, state) {
+          if (state is AddNoteSuccess) {
+            showDialog(
+              context: context,
+              builder: (context) => Container(
+                width: 100,
+                height: 100,
+                color: Colors.red,
+                child: const Text("Success Note Add "),
+              ),
+            );
+          }
+          if (state is AddNoteFailure) {
+            print("Amira is error found");
+          }
+        }, builder: (context, state) {
+          return ModalProgressHUD(
+            inAsyncCall: state is AddNoteLoading ? true : false,
+            child: NoteTextForm(),
+          );
+        }),
       ),
     );
   }

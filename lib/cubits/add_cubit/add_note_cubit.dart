@@ -6,7 +6,7 @@ import 'package:notes_app/views/constant/colors.dart';
 
 part 'add_note_state.dart';
 
-class AddNoteCubit extends Cubit<AddNoteState> {
+class AddNoteCubit extends Cubit<AddNoteStates> {
   AddNoteCubit() : super(AddNoteInitial());
 
   addNote(NoteModel note) async {
