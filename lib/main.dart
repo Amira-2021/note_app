@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:notes_app/cubits/delete_cubit/delete_cubit.dart';
+import 'package:notes_app/cubits/read_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/simple_bloc_observer.dart';
 import 'package:notes_app/views/constant/colors.dart';
@@ -19,15 +21,21 @@ class NoteApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: "Poppins",
-        floatingActionButtonTheme:
-            const FloatingActionButtonThemeData(backgroundColor: kPrimaryColor),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NotesCubit()),
+        BlocProvider(create: (context) => DeleteCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: "Poppins",
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: kPrimaryColor),
+        ),
+        home: const NoteView(),
       ),
-      home: const NoteView(),
     );
   }
 }

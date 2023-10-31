@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/read_cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import '../edit/edit_view.dart';
 
 class CustomeNoteItem extends StatelessWidget {
-  final Color colors;
-  // NoteModel noteModel;
+  final NoteModel model;
   const CustomeNoteItem({
     super.key,
-    required this.colors,
+    required this.model,
   });
 
   @override
@@ -18,7 +20,7 @@ class CustomeNoteItem extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: colors,
+          color: Color(model.color),
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.only(left: 16, top: 24, bottom: 24),
@@ -26,20 +28,22 @@ class CustomeNoteItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: const Text(
-                "Amira",
+              title: Text(
+                model.title,
                 style: TextStyle(fontSize: 22, color: Colors.black),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: Text(
-                  "Engineer Computer science",
+                  model.subtitle,
                   style: TextStyle(
                       fontSize: 18, color: Colors.black.withOpacity(0.5)),
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<NotesCubit>(context).notes!.clear();
+                },
                 icon: const Icon(
                   Icons.delete,
                   color: Colors.black,
@@ -50,7 +54,7 @@ class CustomeNoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 25, right: 24),
               child: Text(
-                "24/10/2023",
+                model.date,
                 style: TextStyle(
                     fontSize: 16, color: Colors.black.withOpacity(0.4)),
               ),

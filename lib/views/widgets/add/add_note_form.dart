@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add_cubit/add_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import '../note/custome_button.dart';
@@ -19,7 +20,20 @@ class _NoteTextFormState extends State<NoteTextForm> {
   var datailController = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subtitle;
-
+  int? color;
+  List<int> colorList = [
+    0xFFFFFFFF,
+    0xFFcffd65,
+    0xFFb0d4bc,
+    0xFFaa97d6,
+    0xFFb0d472,
+    0xFFf6e3b8,
+    0xFFc597e3,
+    0xFFf8aee5,
+    0xFFb4efe0,
+    0xFF438be0,
+    0xFFcf7c65,
+  ];
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -48,6 +62,30 @@ class _NoteTextFormState extends State<NoteTextForm> {
             },
           ),
           const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 90,
+            color: Colors.grey.shade700,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.all(8),
+                child: GestureDetector(
+                  onTap: () {
+                    color = colorList[index];
+                  },
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Color(colorList[index]),
+                  ),
+                ),
+              ),
+              itemCount: colorList.length,
+            ),
+          ),
+          const SizedBox(
             height: 20,
           ),
           BlocBuilder<AddNoteCubit, AddNoteStates>(
@@ -61,8 +99,11 @@ class _NoteTextFormState extends State<NoteTextForm> {
                     var noteModel = NoteModel(
                       title: title!,
                       subtitle: subtitle!,
-                      color: Colors.blue.value,
-                      date: DateTime.now().toString(),
+                      color: color!,
+                      date: DateFormat.yMMMd()
+                          .add_jm()
+                          .format(DateTime.now())
+                          .toString(),
                     );
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                   } else {
