@@ -4,9 +4,11 @@ import 'package:notes_app/views/constant/colors.dart';
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
+  final bool isLoading;
 
   const CustomButton({
     super.key,
+    this.isLoading = false,
     required this.onTap,
     required this.title,
   });
@@ -23,10 +25,14 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 22, color: Colors.black),
-          ),
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  color: Colors.black,
+                )
+              : Text(
+                  title,
+                  style: const TextStyle(fontSize: 22, color: Colors.black),
+                ),
         ),
       ),
     );

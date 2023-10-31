@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/widgets/custome_app_bar.dart';
-import 'package:notes_app/views/widgets/edit_modal_widget.dart';
+import '../note/custome_app_bar.dart';
+import 'edit_modal_widget.dart';
 
 class EditViewBody extends StatefulWidget {
+  const EditViewBody({super.key});
+
   @override
   State<EditViewBody> createState() => _EditViewBodyState();
 }
@@ -14,18 +16,20 @@ class _EditViewBodyState extends State<EditViewBody> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
-          CustomeAppBar(
-              title: "Edit Note", iconData: Icons.check, onTap: OnClickCheck),
+          CustomAppBar(
+              title: "Edit Note", iconData: Icons.check, onTap: onclickcheck),
           Expanded(
-            child: EditModalWidget(function: OnClickCheck),
+            child: EditModalWidget(function: onclickcheck),
           ),
         ],
       ),
     );
   }
 
-  void OnClickCheck() {}
+  void onclickcheck() {
+    debugPrint("clicked");
+  }
 }

@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/widgets/custome_button.dart';
-import 'package:notes_app/views/widgets/custome_text_feild.dart';
-import 'package:notes_app/views/widgets/show_modal_widget.dart';
+import '../note/custome_button.dart';
+import '../add/custome_text_feild.dart';
 
 class EditModalWidget extends StatelessWidget {
   final Function? function;

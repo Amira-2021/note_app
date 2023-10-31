@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/widgets/custome_note_iem.dart';
+import 'custome_note_iem.dart';
 
 class CustomeListView extends StatelessWidget {
+  const CustomeListView({super.key});
+
   // NoteModel? noteModel;
   @override
   Widget build(BuildContext context) {

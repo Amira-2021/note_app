@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/edit_view.dart';
-import 'package:notes_app/views/widgets/edit_view_body.dart';
+import '../edit/edit_view.dart';
 
 class CustomeNoteItem extends StatelessWidget {
-  Color? colors;
+  final Color colors;
   // NoteModel noteModel;
-  CustomeNoteItem({
+  const CustomeNoteItem({
+    super.key,
     required this.colors,
   });
 
@@ -14,7 +14,7 @@ class CustomeNoteItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EditView()));
+            context, MaterialPageRoute(builder: (context) => const EditView()));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -26,7 +26,7 @@ class CustomeNoteItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: Text(
+              title: const Text(
                 "Amira",
                 style: TextStyle(fontSize: 22, color: Colors.black),
               ),
@@ -40,7 +40,7 @@ class CustomeNoteItem extends StatelessWidget {
               ),
               trailing: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete,
                   color: Colors.black,
                   size: 40,
@@ -48,7 +48,7 @@ class CustomeNoteItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 25, right: 24),
+              padding: const EdgeInsets.only(top: 25, right: 24),
               child: Text(
                 "24/10/2023",
                 style: TextStyle(
@@ -60,10 +60,4 @@ class CustomeNoteItem extends StatelessWidget {
       ),
     );
   }
-}
-
-class NoteModel {
-  String title;
-  String content;
-  NoteModel({required this.title, required this.content});
 }

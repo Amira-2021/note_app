@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/widgets/custome_app_bar.dart';
-import 'package:notes_app/views/widgets/custome_list_item.dart';
-import 'package:notes_app/views/widgets/custome_note_iem.dart';
-import 'package:notes_app/views/widgets/search_view.dart';
+import 'custome_app_bar.dart';
+import 'custome_list_item.dart';
+import 'search_view.dart';
 
 class NoteViewBody extends StatefulWidget {
+  const NoteViewBody({super.key});
+
   @override
   State<NoteViewBody> createState() => _NoteViewBodyState();
 }
@@ -16,11 +17,11 @@ class _NoteViewBodyState extends State<NoteViewBody> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
-          CustomeAppBar(title: "Note", iconData: Icons.search, onTap: OnTap),
-          Expanded(
+          CustomAppBar(title: "Note", iconData: Icons.search, onTap: OnTap),
+          const Expanded(
             child: CustomeListView(),
           ),
         ],
@@ -28,8 +29,9 @@ class _NoteViewBodyState extends State<NoteViewBody> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   void OnTap() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SearchView()));
+        context, MaterialPageRoute(builder: (context) => const SearchView()));
   }
 }
