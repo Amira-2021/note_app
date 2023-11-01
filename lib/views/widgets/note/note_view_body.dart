@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/cubits/delete_cubit/delete_cubit.dart';
+import 'package:notes_app/cubits/delete_cubit.dart';
 import 'package:notes_app/cubits/read_cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'custome_app_bar.dart';
 import 'custome_list_item.dart';
-import 'search_view.dart';
 
 class NoteViewBody extends StatefulWidget {
-  const NoteViewBody({super.key});
+  NoteViewBody({super.key, this.noteModel});
+  NoteModel? noteModel;
 
   @override
   State<NoteViewBody> createState() => _NoteViewBodyState();
@@ -49,6 +50,5 @@ class _NoteViewBodyState extends State<NoteViewBody> {
   // ignore: non_constant_identifier_names
   void OnTap() {
     BlocProvider.of<DeleteCubit>(context).removeAllNotes();
-    print("OnTap ${BlocProvider.of<DeleteCubit>(context).isDelete}");
   }
 }

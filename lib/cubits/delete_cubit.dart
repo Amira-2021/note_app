@@ -8,15 +8,9 @@ part 'delete_state.dart';
 
 class DeleteCubit extends Cubit<DeleteState> {
   DeleteCubit() : super(DeleteInitial());
-  bool isDelete = false;
   removeAllNotes() {
-    var notesBox = Hive.box<NoteModel>(kNoteBox);
-    notesBox.clear();
-    isDelete = true;
-  }
-
-  removeOnlyNote(int index) async {
-    var notesBox = Hive.box<NoteModel>(kNoteBox);
-    await notesBox.delete(index);
+    var notes = Hive.box<NoteModel>(kNoteBox);
+    List<NoteModel> items = notes.values.toList();
+    notes.clear();
   }
 }
