@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/views/constant/colors.dart';
+import 'package:notes_app/views/widgets/note/custome_app_bar.dart';
 
 class HomeEmptyView extends StatelessWidget {
   const HomeEmptyView({super.key});
@@ -22,7 +23,7 @@ class HomeEmptyView extends StatelessWidget {
               ),
             ),
             const Text(
-              "Create your first Note!",
+              "Create your first Note !",
               style: TextStyle(fontSize: 22, color: Colors.white),
             ),
           ],

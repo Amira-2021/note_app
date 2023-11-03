@@ -10,7 +10,7 @@ class DeleteCubit extends Cubit<DeleteState> {
   DeleteCubit() : super(DeleteInitial());
   removeAllNotes() {
     var notes = Hive.box<NoteModel>(kNoteBox);
-    List<NoteModel> items = notes.values.toList();
     notes.clear();
+    emit(DeleteSuccess());
   }
 }

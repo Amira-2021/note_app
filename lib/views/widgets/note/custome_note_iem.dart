@@ -14,11 +14,15 @@ class CustomeNoteItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const EditView()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditView(
+                      model: model,
+                    )));
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Color(model.color),
+          color: Color(model.color!),
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.only(left: 16, top: 24, bottom: 24),
@@ -50,7 +54,7 @@ class CustomeNoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 25, right: 24),
               child: Text(
-                model.date,
+                model.date!,
                 style: TextStyle(
                     fontSize: 16, color: Colors.black.withOpacity(0.4)),
               ),

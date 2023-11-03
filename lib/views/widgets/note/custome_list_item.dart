@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/delete_cubit.dart';
 import 'package:notes_app/cubits/read_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/note/home_empty_view.dart';
@@ -16,7 +17,9 @@ class CustomeListView extends StatelessWidget {
       builder: (context, state) {
         List<NoteModel> notesModel =
             BlocProvider.of<NotesCubit>(context).notes ?? [];
-
+        if (state is DeleteSuccess) {
+          BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+        }
         return notesModel.isEmpty
             ? const HomeEmptyView()
             : Padding(
@@ -24,11 +27,20 @@ class CustomeListView extends StatelessWidget {
                 child: ListView.separated(
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) => Dismissible(
-                    key: ValueKey(index),
+                    key: UniqueKey(),
                     background: Container(
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       height: 100,
-                      child: const Icon(Icons.delete),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 200),
+                        child: Icon(
+                          Icons.delete,
+                          size: 50,
+                        ),
+                      ),
                     ),
                     direction: DismissDirection.endToStart,
                     confirmDismiss: (value) {
@@ -57,6 +69,7 @@ class CustomeListView extends StatelessWidget {
                     onDismissed: (DismissDirection direction) {
                       if (direction == DismissDirection.endToStart) {
                         notesModel.removeAt(index).delete();
+                        BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                       }
                     },
                     child: CustomeNoteItem(

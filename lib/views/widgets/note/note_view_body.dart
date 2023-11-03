@@ -33,8 +33,8 @@ class _NoteViewBodyState extends State<NoteViewBody> {
           BlocBuilder<DeleteCubit, DeleteState>(
             builder: (context, state) {
               return CustomAppBar(
-                title: "Note",
-                iconData: Icons.delete,
+                title: "Notes",
+                iconData: Icons.clear,
                 onTap: OnTap,
               );
             },
@@ -50,5 +50,6 @@ class _NoteViewBodyState extends State<NoteViewBody> {
   // ignore: non_constant_identifier_names
   void OnTap() {
     BlocProvider.of<DeleteCubit>(context).removeAllNotes();
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
   }
 }

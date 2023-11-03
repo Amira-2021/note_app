@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/models/note_model.dart';
 import '../note/custome_app_bar.dart';
 import 'edit_modal_widget.dart';
 
-class EditViewBody extends StatefulWidget {
-  const EditViewBody({super.key});
+class EditViewBody extends StatelessWidget {
+  const EditViewBody({
+    super.key,
+    required this.noteModel,
+  });
+  final NoteModel noteModel;
 
-  @override
-  State<EditViewBody> createState() => _EditViewBodyState();
-}
-
-class _EditViewBodyState extends State<EditViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,17 +19,17 @@ class _EditViewBodyState extends State<EditViewBody> {
           const SizedBox(
             height: 50,
           ),
-          CustomAppBar(
-              title: "Edit Note", iconData: Icons.check, onTap: onclickcheck),
+          const CustomAppBar(
+            title: "Edit Note",
+            iconData: Icons.edit,
+          ),
           Expanded(
-            child: EditModalWidget(function: onclickcheck),
+            child: EditModalWidget(
+              model: noteModel,
+            ),
           ),
         ],
       ),
     );
-  }
-
-  void onclickcheck() {
-    debugPrint("clicked");
   }
 }

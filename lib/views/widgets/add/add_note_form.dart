@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add_cubit/add_note_cubit.dart';
+import 'package:notes_app/cubits/read_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import '../note/custome_button.dart';
 import 'custome_text_feild.dart';
@@ -46,7 +47,6 @@ class _NoteTextFormState extends State<NoteTextForm> {
             height: 50,
             color: Colors.blue,
             lines: 1,
-            controller: titleController,
             onSave: (value) {
               title = value;
             },
@@ -56,7 +56,6 @@ class _NoteTextFormState extends State<NoteTextForm> {
             height: 250,
             color: Colors.black,
             lines: 6,
-            controller: datailController,
             onSave: (value) {
               subtitle = value;
             },
@@ -106,6 +105,7 @@ class _NoteTextFormState extends State<NoteTextForm> {
                           .toString(),
                     );
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                   }

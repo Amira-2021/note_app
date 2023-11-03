@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
-      {super.key,
-      required this.height,
-      required this.title,
-      required this.color,
-      required this.lines,
-      this.onSave,
-      required this.controller});
+  CustomTextField({
+    super.key,
+    required this.height,
+    required this.title,
+    required this.color,
+    required this.lines,
+    this.onSave,
+    this.onChange,
+  });
   final double height;
   final String title;
   final Color color;
   final int lines;
   final void Function(String?)? onSave;
-  final TextEditingController controller;
+  void Function(String?)? onChange;
 
   // CustomTextField(this.height, this.title, this.color, this.lines, this.onSave,
   //      this.controller);
@@ -27,7 +28,6 @@ class CustomTextField extends StatelessWidget {
         maxLines: lines,
         textInputAction: TextInputAction.next,
         cursorColor: const Color(0xff62FCD7),
-        controller: controller,
         onSaved: onSave,
         validator: (value) {
           if (value?.isEmpty ?? true) {
@@ -36,10 +36,7 @@ class CustomTextField extends StatelessWidget {
             return null;
           }
         },
-        // onSubmitted: (input) {
-        //   input = controller.text;
-        // noteModel.title = input;
-        // },
+        onChanged: onChange,
         decoration: InputDecoration(
           hintText: title,
           hintStyle: const TextStyle(fontSize: 22),

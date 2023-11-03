@@ -1,18 +1,18 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/read_cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import '../note/custome_button.dart';
 import '../add/custome_text_feild.dart';
 
 class EditModalWidget extends StatelessWidget {
-  final Function? function;
-  EditModalWidget({
+  final NoteModel model;
+  const EditModalWidget({
     super.key,
-    this.function,
+    required this.model,
   });
-  final titleController = TextEditingController();
-  final datailController = TextEditingController();
-  // NoteModel? noteModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class EditModalWidget extends StatelessWidget {
       ),
       child: SingleChildScrollView(
           child: EditTextForm(
-        function: function,
+        model: model,
       )),
     );
   }
@@ -31,59 +31,57 @@ class EditModalWidget extends StatelessWidget {
 
 class EditTextForm extends StatefulWidget {
   final Function? function;
-  const EditTextForm({super.key, this.function});
+  final NoteModel model;
+  const EditTextForm({
+    super.key,
+    this.function,
+    required this.model,
+  });
   @override
   _EditTextFormState createState() => _EditTextFormState();
 }
 
 class _EditTextFormState extends State<EditTextForm> {
-  var titleController = TextEditingController();
-  var subtitleController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subtitle;
+  String date = "155512";
+  int color = 0xFFFFFFFF;
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-          CustomTextField(
-            title: "Title",
-            height: 50,
-            color: Colors.blue,
-            lines: 1,
-            controller: titleController,
-            onSave: (value) {
-              title = value;
-            },
-          ),
-          CustomTextField(
-            title: "Content",
-            height: 250,
-            color: Colors.black,
-            lines: 6,
-            controller: subtitleController,
-            onSave: (value) {
-              subtitle = value;
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomButton(
-              title: "Save",
-              onTap: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                } else {
-                  autovalidateMode = AutovalidateMode.always;
-                }
-                setState(() {});
-              })
-        ],
-      ),
+    return Column(
+      children: [
+        CustomTextField(
+          title: widget.model.title,
+          height: 50,
+          color: Colors.blue,
+          lines: 1,
+          onChange: (value) {
+            title = value;
+          },
+        ),
+        CustomTextField(
+          title: widget.model.subtitle,
+          height: 250,
+          color: Colors.black,
+          lines: 6,
+          onChange: (value) {
+            subtitle = value;
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        CustomButton(
+            title: "Save",
+            onTap: () {
+              widget.model.title = title ?? widget.model.title;
+              widget.model.subtitle = subtitle ?? widget.model.subtitle;
+              widget.model.save();
+              Navigator.pop(context);
+              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+            })
+      ],
     );
   }
 }

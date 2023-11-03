@@ -5,9 +5,14 @@ class CustomAppBar extends StatelessWidget {
   final String title;
   final IconData iconData;
   final VoidCallback? onTap;
+  final Color? colors;
 
   const CustomAppBar(
-      {super.key, required this.title, required this.iconData, this.onTap});
+      {super.key,
+      required this.title,
+      required this.iconData,
+      this.onTap,
+      this.colors});
 
   @override
   Widget build(BuildContext context) {
